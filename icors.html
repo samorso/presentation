@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Two-step robust estimation of copulae</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Two-step robust estimation of copulae">
+  <meta name="author" content="Samuel Orso">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Two-step robust estimation of copulae</h1>
+    <h2></h2>
+    <p>Samuel Orso<br/>PhD candidate, University of Geneva</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Presentation for ICORS 2016, Geneva, July 5</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>joint work with<br>
+Stéphane Guerrier, University of Illinois at Urbana-Champaign<br>
+Maria-Pia Victoria Feser, Université de Genève</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Background</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Suppose you want to model the joint distribution \((X_1,X_2)\sim F(X_1,X_2)\) of two continuous random variables \(X_1\sim F_1\) and \(X_2\sim F_2\)</li>
+<li>But \(F_1\) and \(F_2\) are different distributions, and multivariate normality is far from ideal</li>
+<li>Hopefully, Sklar (1959) tells you that you don&#39;t need to model \(F(X_1,X_2)\) because \(F(X_1,X_2) = C(F_1(X_1),F_2(X_2))\)</li>
+<li>The function \(C(\cdot,\cdot)\) is unique and very flexible!</li>
+<li>\(C(\cdot,\cdot)\) is a copula function</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <article data-timings="">
+    <p>\(\DeclareMathOperator*{\argzero}{argzero}\)
+\(\DeclareMathOperator*{\argmin}{argmin}\)</p>
+
+<h2>Estimator</h2>
+
+<ul class = "build incremental">
+<li>We wish to estimate \(\boldsymbol\theta^{T} =(\boldsymbol\beta_1^{T},\boldsymbol\beta_2^{T},\boldsymbol\gamma^{T})^{T}\) from the parametric model \(C\big(F_1(X_1, \boldsymbol\beta_1),F_2(X_2,\boldsymbol\beta_2),\boldsymbol\gamma\big)\), where \(\boldsymbol\theta\in\Theta\subseteq\mathcal{R}^{d}\)</li>
+<li>Let &quot;\(x = \argzero f(x)\)&quot; denotes the implicit solution in \(x\) such that \(f(x) = 0\) </li>
+<li>The one-step estimator to this problem can be written as \[ \hat{\boldsymbol\theta} = \underset{\boldsymbol\theta\in\Theta}{\argzero} \; n^{-1}\sum_{i=1}^{n} \boldsymbol\Psi\big(F_1(X_1, \boldsymbol\beta_1),F_2(X_2,\boldsymbol\beta_2),\boldsymbol\gamma\big)\]
+where \(\boldsymbol\Psi(\dots)\) is known vector-valued maps, typically a system of \(d\) nonlinear equations</li>
+<li>If \(\boldsymbol\Psi(\dots)\) is the gradient of the likelihood, \(\hat{\boldsymbol\theta}\) is the MLE</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Estimator cont</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Two-step estimators are more flexible: inference is done independently on \(\boldsymbol\beta_1,\boldsymbol\beta_2\), and conditionnaly on \(\boldsymbol\gamma \rvert \hat{\boldsymbol\beta}_1,\hat{\boldsymbol\beta}_2\)</li>
+<li>First, \[ \begin{pmatrix} \hat{\boldsymbol\beta}_1 \\ \hat{\boldsymbol\beta}_2 \end{pmatrix}  = \begin{pmatrix} \argzero \sum_{i=1}^{n} \Psi_1(x_{1i},\boldsymbol\beta_1) \\ \argzero \sum_{i=1}^{n} \Psi_2(x_{2i},\boldsymbol\beta_2) \end{pmatrix} \]</li>
+<li>Second, \[ \hat{\boldsymbol\gamma} = \argzero \sum_{i=1}^{n} \Psi_3\left(F_1(x_{i1},\hat{\boldsymbol\beta}_1), F_2(x_{i2},\hat{\boldsymbol\beta}_2),\boldsymbol\gamma\right)\]<br></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Influence function</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>For margins, the data generating mechanism (DGP) is \[ F_{\epsilon} = (1-\epsilon) F_{\boldsymbol\beta_j} + \epsilon\Delta_{z_j}, \quad 0\leq\epsilon\ll 1\]<br></li>
+<li>The DGP of bivariate distribution is \[ C_{\delta(\epsilon)} = (1-\delta(\epsilon))C_{\boldsymbol\theta} + \delta(\epsilon)\Delta_{\mathbf{z}} \] where \(\Delta_{\mathbf{z}}\) is the bivariate dirac distribution function</li>
+<li>\(\delta(\epsilon)\) is the overall proportion of random variable (rv) generated by \(\Delta_{\mathbf{z}}\), i.e., if \((O_1,O_2)\) denotes bivariate dichotomeous latent variables of observing a rv from \(\Delta_{\mathbf{z}}\), then \[\delta(\epsilon) = P(O_1=1,O_2=0) + P(O_1=0,O_2=1) + P(O_1=1,O_2=1)\]</li>
+<li>Generally in the litterature \(\delta(\epsilon)=\epsilon\) (discussed later)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>Influence function cont</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Assume estimators are Fisher consistent, i.e. \(\hat{\boldsymbol\beta}_j(F_{\boldsymbol\beta_j}) = \boldsymbol\beta_j^{0}\) and \(\hat{\boldsymbol\gamma}(C_{\boldsymbol\gamma}) = \boldsymbol\gamma_0\)</li>
+<li>Then the influence function of the copula estimator \(\hat{\boldsymbol\gamma}\) is given by \(\begin{align*} \mbox{IF}(\mathbf{z}; \hat{\boldsymbol\gamma}, C_{\boldsymbol\gamma}) &= \mathbf{M}^{-1}_3 \Bigg\{\left(2 - \frac{\partial}{\partial\epsilon}\delta(\epsilon)\big\rvert_{\epsilon=0}\right) \Psi_3(F_1(z_1,\boldsymbol\beta_1),F_2(z_2,\boldsymbol\beta_2),\boldsymbol\gamma) \\ & \qquad + \sum_{j=1}^2 \mathbf{B}_j \mbox{IF}(z_j; \hat{\boldsymbol\beta}_j, F_{\boldsymbol\beta_j})\Bigg\} \end{align*}\)</li>
+<li>\(\mathbf{B}_j = \mathbb{E}_{C_{\boldsymbol\gamma}}\frac{\partial}{\partial\boldsymbol\beta_j}\Psi_3(F_1(z_1,\boldsymbol\beta_1),F_2(z_2,\boldsymbol\beta_2),\boldsymbol\gamma)\)</li>
+<li>\(\mbox{IF}(z_j; \hat{\boldsymbol\beta}_j, F_{\boldsymbol\beta_j}) = \mathbf{M}^{-1}_j \Psi_j(z_j,\boldsymbol\beta_j)\) is the influence function from margins</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Influence function cont</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>\(\mbox{IF}(\mathbf{z}; \hat{\boldsymbol\gamma}, C_{\boldsymbol\gamma}) \propto \sum_{j=1}^{2} \mbox{IF}(z_j; \hat{\boldsymbol\beta}_j, F_{\boldsymbol\beta_j})\), margins estimators influence dependence estimator: \(\Psi_j\) must be bounded!</li>
+<li>\(\mbox{IF}(\mathbf{z}; \hat{\boldsymbol\gamma}, C_{\boldsymbol\gamma}) \propto \Psi_3(F_1(z_1,\boldsymbol\beta_1),F_2(z_2,\boldsymbol\beta_2),\boldsymbol\gamma_0)\), the \(\Psi\)-function for the copula parameter must be bounded as well!</li>
+<li>\(\mbox{IF}(\mathbf{z}; \hat{\boldsymbol\gamma}, C_{\boldsymbol\gamma}) \propto \left(2 - \frac{\partial}{\partial\epsilon}\delta(\epsilon)\big\rvert_{\epsilon=0}\right)\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Influence function cont</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Without loss of generality, let assume that \(P(O_j=1) = \epsilon\) and \(P(O_1=1,O_2=1) = \epsilon^{a}\) for some parameter \(a\geq 1\)</li>
+<li>If \(a\to 1\) \((O_1,O_2)\) are comonotonic and \(\frac{\partial}{\partial\epsilon}\delta(\epsilon)\big\rvert_{\epsilon=0} = 1\)</li>
+<li>If \(a=2\) then \((O_1,O_2)\) are independent and \(\frac{\partial}{\partial\epsilon}\delta(\epsilon)\big\rvert_{\epsilon=0} = 0\)</li>
+<li>If \(a\to\infty\) \((O_1,O_2)\) are countercomonotonic and \(\frac{\partial}{\partial\epsilon}\delta(\epsilon)\big\rvert_{\epsilon=0} = 0\)</li>
+<li>For any fixed \(\mathbf{z}\), \(||\mbox{IF}(\mathbf{z}; \hat{\boldsymbol\gamma}, C_{\boldsymbol\gamma}, a)||^{2} > || \mbox{IF}(\mathbf{z}; \hat{\boldsymbol\gamma}, C_{\boldsymbol\gamma},a=1) ||^{2}\) for any \(a>1\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Robust estimator</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>A viable candidate to obtain robust estimators is the weighted MLE</li>
+<li>We are looking for the two-step solution \[ \hat{\boldsymbol\theta}  = \begin{pmatrix} \argzero \sum_{i=1}^{n} \widetilde{\Psi}_1(x_{1i},\boldsymbol\beta_1) - \mathbb{E}_{F_{\boldsymbol\beta_1}}(\widetilde{\Psi_1})  \\ \argzero \sum_{i=1}^{n} \widetilde{\Psi}_2(x_{2i},\boldsymbol\beta_2) - \mathbb{E}_{F_{\boldsymbol\beta_2}}(\widetilde{\Psi_2}) \\ \argzero \sum_{i=1}^{n} \widetilde{\Psi}_3\left(F_1(x_{i1},\hat{\boldsymbol\beta}_1), F_2(x_{i2},\hat{\boldsymbol\beta}_2),\boldsymbol\gamma\right) - \mathbb{E}_{C_{\boldsymbol\gamma}}(\widetilde{\Psi}_3) \end{pmatrix} \]
+where \(\widetilde{\Psi}_j = \mathbf{w}_j(x_j,\boldsymbol\beta_j,c_j) \odot \mathbf{s}(x_j,\boldsymbol\beta_j)\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Robust estimator cont</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Or equivalently \[ \hat{\boldsymbol\theta}  = \begin{pmatrix} \argmin \lVert\hat{\boldsymbol\pi}_1 - \boldsymbol\pi(\boldsymbol\beta_1,F_{\boldsymbol\beta_1})\rVert^{2}  \\ \argmin \lVert\hat{\boldsymbol\pi}_2 - \boldsymbol\pi(\boldsymbol\beta_2,F_{\boldsymbol\beta_2})\rVert^{2} \\ \argmin \lVert\hat{\boldsymbol\pi}_3(\hat{\boldsymbol\beta}_1,\hat{\boldsymbol\beta}_2) - \boldsymbol\pi(\boldsymbol\gamma,C_{\boldsymbol\gamma})\rVert^{2} \end{pmatrix} \]</li>
+<li>\(\hat{\boldsymbol\pi}\) is a biased estimator on the data, for eg \(\hat{\boldsymbol\pi}_j = \argzero \sum_{i=1}^{n}\widetilde{\Psi}_j(x_{ij},\boldsymbol\beta_j)\)</li>
+<li>If \(\boldsymbol\pi(\cdot,\cdot)\) is unknown, it can be estimated by \(\hat{\boldsymbol\pi}^{H}(\cdot,\cdot)\), \(\hat{\boldsymbol\pi}\)  estimated \(H\) times on pseudo-drawn observations (indirect inference)</li>
+<li>Exact form of neither \(\boldsymbol\pi(\cdot,\cdot)\) nor \(\mathbb{E}(\widetilde{\Psi}_j)\) are required</li>
+<li>Two-step indirect M-estimator \[ \hat{\boldsymbol\theta}^H  = \begin{pmatrix} \argmin \lVert\hat{\boldsymbol\pi}_1 - \hat{\boldsymbol\pi}^H(\boldsymbol\beta_1,F_{\boldsymbol\beta_1})\rVert^{2}  \\ \argmin \lVert\hat{\boldsymbol\pi}_2 - \hat{\boldsymbol\pi}^H(\boldsymbol\beta_2,F_{\boldsymbol\beta_2})\rVert^{2} \\ \argmin \lVert\hat{\boldsymbol\pi}_3(\hat{\boldsymbol\beta}_1,\hat{\boldsymbol\beta}_2) - \hat{\boldsymbol\pi}^H(\boldsymbol\gamma,C_{\boldsymbol\gamma})\rVert^{2} \end{pmatrix} \]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Consistency</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>First, we use the results from Huber (1967) to prove that \(\hat{\boldsymbol\pi}\overset{\tiny\mbox{a.s.}}{\longrightarrow}\boldsymbol\pi_0\) (under some technical conditions)</li>
+<li>Second, we use the basic consistency theorem of Engle and McFadden (1994) to prove that \(\hat{\boldsymbol\theta}^{H}\overset{\tiny\mbox{a.s.}}{\longrightarrow}\boldsymbol\theta_0\), for any fixed \(H<\infty\)</li>
+<li>The proof relies on some technical conditions, plus a strong condition for identifiability : </li>
+<li>(A) The function \(\boldsymbol\pi(\boldsymbol\theta)\) is one-to-one</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Asymptotic Normality</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>First, we use results from Huber (1967) to prove asymptotic normality of \(\sqrt{n}(\hat{\boldsymbol\pi}_j - \hat{\boldsymbol\pi}_j^{H})\overset{\tiny\mbox{d}}{\longrightarrow}\mathcal{N}\left(0,(1+\frac{1}{H})\Lambda_j\right)\) where \(\Lambda_j=M^{-1}_jP_{jj}M^{-T}_j\) is the sandwich-form covariance matrix</li>
+<li>Second, we use the the asymptotic normality theorem of Engle and McFadden (1994) to prove the asymptotic normality \(\sqrt{n}(\hat{\boldsymbol\beta}_j - \boldsymbol\beta_j^{0})\overset{\tiny\mbox{d}}{\longrightarrow}\mathcal{N}\left(0,\Sigma_j\right)\) where \(\Sigma_j = (1+\frac{1}{H})G_j^{T}\Lambda_jG_j\) and \(G_j = \frac{\partial}{\partial\boldsymbol\beta_j^{T}}\boldsymbol\pi(\boldsymbol\beta_j)\)</li>
+<li>\(\sqrt{n}(\hat{\boldsymbol\theta}^H-\boldsymbol\theta_0)\overset{\tiny\mbox{d}}{\longrightarrow}\mathcal{N}\left(0,\boldsymbol\Sigma\right)\), \(\boldsymbol\Sigma\) is a nine blocks symmetric matrix</li>
+<li>The last block, the covariance matrix of \(\hat{\gamma}\), is given by \[ \begin{align*} \Sigma_{33} &= G^{-1}_3M^{-1}_3 \bigg( (1+H^{-1})P_{33} + (1+H^{-1})\sum_{i=1}^2 B_i\Lambda_iB_i^T \\ & \qquad -2\sum_{i=1}^2P_{3i}M_i^{-T}B_i^{T} + 2B_1M_1^{-1}P_{12}M_2^{-T}B_2^T \bigg) M^{-T}_3G^{-T}_3 \end{align*}\]</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-13" style="background:;">
+  <article data-timings="">
+    <style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  .fit { /* set relative picture size */
+    max-width: 100%;
+    max-height: 70%;
+  }
+  .center {
+    display: block;
+    margin: auto;
+  }
+</style>
+
+<h2>Efficiency</h2>
+
+<ul class = "build incremental">
+<li>You lose efficiency: one-step \(\longrightarrow\) two-step estimator</li>
+<li>Again you lose efficiency by solving by indirect inference (\(H<\infty\))</li>
+<li><img class="center fit" src="assets/img/plot.jpg"></img></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-14" style="background:;">
+  <hgroup>
+    <h2>Bootstrap strategy</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>You want to estimate \(\widehat{\Sigma}_{33}\), but parametric bootstrap is too slow</li>
+<li>Idea: use the asymptotic distribution of \((\hat{\boldsymbol\beta}_1^{T},\hat{\boldsymbol\beta}_2^T)^T\)</li>
+<li>0. You estimated \(\hat{\boldsymbol\theta}\)</li>
+<li>First step:</li>
+<li>1. Generate the pair \((x_1,x_2)^{(b)}\) from \(C_{\hat{\boldsymbol\theta}}\)</li>
+<li>2. Estimate \(\hat{\boldsymbol\pi}^{(b)}_j\) for \(j=1,2\)</li>
+<li>3. Repeat 1. and 2. for \(b=1,\dots,B\)</li>
+<li>4. Estimate \(\widehat{\Lambda}_{ji} = \frac{1}{B-1}\sum_{b=1}^B (\hat{\boldsymbol\pi}^{(b)}_j - \bar{\boldsymbol\pi}^{(b)}_j)^T(\hat{\boldsymbol\pi}^{(b)}_i - \bar{\boldsymbol\pi}^{(b)}_i)\) for \(i,j=1,2\)</li>
+<li>5. Compute the blocks \(\widehat{\Sigma}_{11}\), \(\widehat{\Sigma}_{22}\) and \(\widehat{\Sigma}_{21}\)</li>
+<li>It gives an estiate of the covariance matrix of \((\hat{\boldsymbol\beta}_1^{T},\hat{\boldsymbol\beta}_2^T)^T\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Bootstrap strategy cont</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Second step:</li>
+<li>1. Generate (or recycle) the pair \((x_1,x_2)^{(b)}\) from \(C_{\hat{\boldsymbol\theta}}\)</li>
+<li>2. Generate the pair \((\hat{\boldsymbol\beta}_1,\hat{\boldsymbol\beta}_2)^{(b)}\) from \(\mathcal{MN}\left( \begin{pmatrix} \hat{\boldsymbol\beta}_1 \\ \hat{\boldsymbol\beta}_2 \end{pmatrix}, \begin{pmatrix} \widehat{\Sigma}_{11} & \widehat{\Sigma}_{21}^T \\ \widehat{\Sigma}_{21} & \widehat{\Sigma}_{22} \end{pmatrix}\right)\)</li>
+<li>3. Estimate the pair \((u_1^T,u_2^T)^{(b)} = (F_1(x_1,\hat{\boldsymbol\beta}_1^{(b)}),F_1(x_1,\hat{\boldsymbol\beta}_2^{(b)}))\)</li>
+<li>4. Estimate \(\hat{\pi}^{(b)}_3\)</li>
+<li>5. Repeat 1. to 4. for \(b=1,\dots,B\)</li>
+<li>6. Estimate \(\widehat{\Lambda^*}_{33} = \frac{1}{B-1}\sum_{b=1}^B (\hat{\boldsymbol\pi}^{(b)}_3 - \bar{\boldsymbol\pi}^{(b)}_3)^T(\hat{\boldsymbol\pi}^{(b)}_3 - \bar{\boldsymbol\pi}^{(b)}_3)\)</li>
+<li>7. Compute \(\widehat{\Sigma}_{33}\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Thank you for your attention!</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Huber (1967). The behaviour of maximum likelihood estimates under nonstandard conditionis. In Proceedings of the fifth Berkeley symposium on mathematical statistics and probability.</li>
+<li>Newey and McFadden (1994). Large sample estimation and hypothesis testing. Handbook of econometrics</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Presentation for ICORS 2016, Geneva, July 5'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Background'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='NA'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Estimator cont'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Influence function'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Influence function cont'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Influence function cont'>
+         7
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=8 title='Influence function cont'>
+         8
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=9 title='Robust estimator'>
+         9
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=10 title='Robust estimator cont'>
+         10
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=11 title='Consistency'>
+         11
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=12 title='Asymptotic Normality'>
+         12
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=13 title='NA'>
+         13
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=14 title='Bootstrap strategy'>
+         14
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=15 title='Bootstrap strategy cont'>
+         15
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=16 title='Thank you for your attention!'>
+         16
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
