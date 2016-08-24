@@ -16,6 +16,7 @@ knit        : slidify::knit2slides
 joint work with  
 Stéphane Guerrier, University of Illinois at Urbana-Champaign   
 Maria-Pia Victoria Feser, Université de Genève
+James Balamuta, University of Illinois at Urbana-Champaign
 
 ---
 ## Background
@@ -141,6 +142,21 @@ $\DeclareMathOperator*{\argmin}{argmin}$
  > - 5. Repeat 1. to 4. for $b=1,\dots,B$
  > - 6. Estimate $\widehat{\Lambda^*}_{33} = \frac{1}{B-1}\sum_{b=1}^B (\hat{\boldsymbol\pi}^{(b)}_3 - \bar{\boldsymbol\pi}^{(b)}_3)^T(\hat{\boldsymbol\pi}^{(b)}_3 - \bar{\boldsymbol\pi}^{(b)}_3)$
  > - 7. Compute $\widehat{\Sigma}_{33}$
+
+---
+## Implementation Details
+ > - Due to the intensity of bootstrapping, the estimation procedure was written primarily in C++ and exported into R using [Rcpp](http://rcpp.org)
+ > - The C++ backend relies upon the [Armadillo](http://arma.sourceforge.net/docs.html) Linear Algebra Library.
+ > - Solving the minization problem required the use of LBFGS optimization routine in [libLBFGS](http://www.chokkan.org/software/liblbfgs/) by Naoaki Okazaki.
+ > - Parallelized Indirect Inference Estimation by using [OpenMP](http://openmp.org/wp/) combined with parallel pseudorandom number generator [sitmo](https://www.sitmo.com/?p=1206)
+ > - Developed both a Copula simulation class based upon the [CDVine](https://cran.r-project.org/web/packages/CDVine/index.html) R Package and a general Probability Distribution wrapper library.
+
+
+---
+## Release Information
+ > - Scheduled to be available in early October.
+ > - Available for the [R language](https://cloud.r-project.org/)
+ > - Watch: <http://smac-group.com/>
 
 --- 
 ## Thank you for your attention!
