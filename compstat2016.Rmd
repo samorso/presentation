@@ -14,9 +14,9 @@ knit        : slidify::knit2slides
 ---
 ## Presentation for COMPSTAT 2016, Ovideo, August 24
 joint work with  
-Stéphane Guerrier, University of Illinois at Urbana-Champaign   
-Maria-Pia Victoria Feser, Université de Genève   
-James Balamuta, University of Illinois at Urbana-Champaign    
+- Stéphane Guerrier, University of Illinois at Urbana-Champaign   
+- Maria-Pia Victoria Feser, Université de Genève   
+- James Balamuta, University of Illinois at Urbana-Champaign    
 
 ---
 ## Background
